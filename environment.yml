@@ -1,0 +1,19 @@
+name: credit-fairness
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - pgmpy
+      - networkx
+      - scikit-learn
+      - fairlearn
+      - pandas
+      - numpy
+      - scipy
+      - matplotlib
+      - seaborn
+      - torch
+      - ipykernel

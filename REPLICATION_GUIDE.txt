@@ -1,0 +1,135 @@
+================================================================================
+MASTER'S CAPSTONE REPLICATION GUIDE
+Project: Counterfactual Credit Fairness Under Uncertain Proxy Pathways
+Benchmark: UCI Default of Credit Card Clients (Dataset 350)
+================================================================================
+
+This document contains complete, step-by-step instructions to set up the 
+environment, verify the causal models, run all mandatory experiments, and inspect 
+the results.
+
+--------------------------------------------------------------------------------
+1. SYSTEM PREREQUISITES
+--------------------------------------------------------------------------------
+- OS: macOS (Intel/Apple Silicon) or Linux (Ubuntu 20.04+)
+- Python Environment Manager: Conda (Miniconda or Anaconda)
+- Disk Space: ~1.5 GB free space
+
+--------------------------------------------------------------------------------
+2. ENVIRONMENT SETUP
+--------------------------------------------------------------------------------
+Open a terminal, navigate into the project directory, and execute:
+
+  # 1. Create conda environment with Python 3.10
+  conda create -n credit-fairness python=3.10 -y
+
+  # 2. Activate the environment
+  conda activate credit-fairness
+
+  # 3. Upgrade pip
+  pip install --upgrade pip
+
+  # 4. Install all required dependencies
+  pip install torch numpy pandas scikit-learn pgmpy networkx fairlearn matplotlib scipy ipykernel
+
+  # 5. Register conda environment with Jupyter for notebook inspection
+  python -m ipykernel install --user --name=credit-fairness --display-name "Python (credit-fairness)"
+
+--------------------------------------------------------------------------------
+3. DATA PREPROCESSING & LEAKAGE-FREE SPLIT
+--------------------------------------------------------------------------------
+Fit the frozen 60/20/20 train/validation/test split, compute discretization 
+parameters exclusively on the training split, and construct intersectional 
+demographic categories (G = A x C):
+
+  python -c "from src.data_loader import build_and_save_splits; build_and_save_splits()"
+
+Verification check:
+- Confirms the creation of:
+  * data/processed/train.csv (18,000 rows)
+  * data/processed/val.csv   (6,000 rows)
+  * data/processed/test.csv  (6,000 rows)
+
+--------------------------------------------------------------------------------
+4. EXECUTION OF ALL EXPERIMENTS (IN ORDER)
+--------------------------------------------------------------------------------
+Run the experiments from the root repository directory in the following sequence:
+
+[Step 1] Frozen Test Set Audit & Statistical Bootstrapping (Experiment 1)
+Audits the unconstrained Gradient Boosted Tree (aware), blind GBT (attribute A 
+removed), and the Minimax Counterfactual Classifier. Computes 1,000 paired 
+bootstrap confidence intervals for Delta EOdds and Delta DP:
+  
+  python experiments/run_test_audit.py
+
+[Step 2] Matched-Utility Fairness Frontier (Experiment 2)
+Computes the Pareto trade-off curve across regularization penalties 
+(lambda in [0.0, 1.20]) at a calibrated top-65% selection rate:
+
+  python experiments/run_matched_utility.py
+
+[Step 3] Cross-Graph Audit & Required Ablations (Experiment 3)
+Runs the ablation study comparing:
+  - Unconstrained Baseline
+  - Single-Graph Penalty (G1)
+  - Average-Graph Penalty
+  - Minimax Worst-Graph Penalty (Proposed)
+Evaluates audit shift stability across candidate DAGs G1, G2, G3, and G4:
+
+  python experiments/run_graph_shift.py
+
+[Step 4] SCM Simulation & Misspecification Stress-Test (Experiments 4 & 5)
+Evaluates ground-truth counterfactual discrepancy under demographic thinning 
+(30% vs. 5% minority support) and proxy strength regimes. Tests causal breakdown 
+under unobserved structural confounding (financial stress U_stress):
+
+  python experiments/run_simulation.py
+
+[Step 5] Multi-Seed Algorithmic Variance Protocol (Statistical Protocol Item 5)
+Evaluates algorithmic stability across 5 random seeds (42, 101, 2024, 7, 999):
+
+  python experiments/run_multiseed_audit.py
+
+--------------------------------------------------------------------------------
+5. GENERATING PUBLICATION-READY FIGURES
+--------------------------------------------------------------------------------
+Generate high-resolution vector PDFs and PNGs for the paper:
+
+  python notebooks/generate_paper_figures.py
+
+Generated artifacts in figures/:
+  - figure1_pareto_frontier.pdf / .png   (Utility vs. worst-case CF shift)
+  - figure2_cross_graph_audit.pdf / .png (Ablation discrepancy across candidate DAGs)
+  - figure3_simulation_thinning.pdf / .png (Ground-truth SCM thinning stress-test)
+
+--------------------------------------------------------------------------------
+6. INTERACTIVE REPLICATION & AUDIT NOTEBOOK
+--------------------------------------------------------------------------------
+To inspect intermediate tables, verification proofs, and live counterfactuals:
+
+  1. Open notebooks/audit_inspection.ipynb in Cursor, VS Code, or JupyterLab:
+       jupyter lab notebooks/audit_inspection.ipynb
+  2. Select the kernel: "Python (credit-fairness)"
+  3. Click "Run All"
+
+The notebook provides:
+  - Section 2: Split size validation & small-group check (N < 30 flag = False)
+  - Section 3: Exact inference proof (|VE - CT| <= 1e-16 tolerance check)
+  - Section 4: Live Pearl 3-step abduction query on an individual borrower
+  - Sections 5-7: Inline interactive plots and metric comparisons
+
+--------------------------------------------------------------------------------
+7. COMPLETE DOCUMENTATION DIRECTORY
+--------------------------------------------------------------------------------
+Review the following documentation files located in docs/:
+  - docs/literature_comparison_table.md : Matrix of 8 foundational/recent papers 
+                                          and falsifiable contribution sentence.
+  - docs/data_card.md                   : UCI 350 dataset provenance, encoding, 
+                                          and small-group safeguards.
+  - docs/model_card.md                  : Minimax classifier architecture, loss 
+                                          formulation, and frozen test metrics.
+  - docs/assumptions_register.md        : Causal sufficiency, positivity, Dirichlet 
+                                          prior smoothing, and inference invariants.
+  - docs/defence_and_contributions.md   : Partner workload distribution and 10-slide 
+                                          oral defence presentation outline.
+================================================================================

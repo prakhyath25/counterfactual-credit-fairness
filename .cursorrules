@@ -1,0 +1,5 @@
+# Project Rules & Safeguards
+- Causal Models: Use pgmpy and explicit Structural Causal Models (SCMs).
+- Inference Verification: Ensure exact agreement between Variable Elimination and Clique Tree inference within 1e-6 numerical tolerance.
+- Data Leakage: Fit all preprocessing, binning, and calibrations solely on the training set.
+- Fairness: Focus on counterfactual sensitivity across 3-5 candidate graphs; report Delta EOdds, Delta DP, and bootstrap CIs.
