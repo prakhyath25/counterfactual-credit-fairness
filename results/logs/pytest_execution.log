@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.10.22, pytest-9.2.0, pluggy-1.7.0
+rootdir: /Users/prakhyathshetty/counterfactual-credit-fairness
+collected 4 items
+
+tests/test_causal_pipeline.py::test_inference_equivalence PASSED         [ 25%]
+tests/test_causal_pipeline.py::test_zero_leakage PASSED                  [ 50%]
+tests/test_causal_pipeline.py::test_small_groups PASSED                  [ 75%]
+tests/test_causal_pipeline.py::test_counterfactual_engine PASSED         [100%]
+
+============================== 4 passed in 3.45s ===============================
+VE vs. Clique Tree Calibration Discrepancy:
+G1_proxy_limit        : Max Diff = 0.00e+00 | Pass = True
+G2_unbiased_allocation: Max Diff = 5.55e-17 | Pass = True
+G3_proxy_repayment    : Max Diff = 0.00e+00 | Pass = True
+G4_mediated_education : Max Diff = 5.55e-17 | Pass = True

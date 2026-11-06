@@ -1,0 +1,7 @@
+artifact_path,command,config,seed_run,data_version,code_commit,status
+figures/figure1_pareto_frontier.pdf,python notebooks/generate_paper_figures.py,default,seed_42,UCI_350_v1,c4f9a12,complete
+figures/figure2_cross_graph_audit.pdf,python notebooks/generate_paper_figures.py,default,seed_42,UCI_350_v1,c4f9a12,complete
+figures/figure3_simulation_thinning.pdf,python notebooks/generate_paper_figures.py,default,seed_42,UCI_350_v1,c4f9a12,complete
+data/processed/train.csv,python -c "from src.data_loader import build_and_save_splits; build_and_save_splits()",default,seed_42,UCI_350_v1,c4f9a12,complete
+notebooks/audit_inspection.ipynb,jupyter execute notebooks/audit_inspection.ipynb,default,seed_42,UCI_350_v1,c4f9a12,complete
+results/multiseed_summary.csv,python experiments/run_multiseed_audit.py,default,5_seeds,UCI_350_v1,c4f9a12,complete

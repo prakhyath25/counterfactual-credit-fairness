@@ -1,0 +1,7 @@
+Group_ID,Sex,Age_Tier,Count,Proportion,Small_Sample_Flag
+0,Male,<35,1140,0.190,False
+1,Male,35-54,1032,0.172,False
+2,Male,>=55,228,0.038,False
+3,Female,<35,1782,0.297,False
+4,Female,35-54,1512,0.252,False
+5,Female,>=55,306,0.051,False

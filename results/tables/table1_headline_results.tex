@@ -1,0 +1,15 @@
+\begin{table}[h]
+\centering
+\caption{Empirical Comparison on Frozen Test Set ($N=6,000$)}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Model} & \textbf{AUROC} & $\Delta\textbf{EOdds}$ & \textbf{Worst CF Shift} & \textbf{Brier} \\
+\midrule
+GBT-Aware & $0.784 \; [0.771, 0.797]$ & $0.068 \; [0.038, 0.103]$ & $0.168 \; [0.154, 0.183]$ & 0.141 \\
+GBT-Blind & $0.776 \; [0.763, 0.789]$ & $0.052 \; [0.024, 0.084]$ & $0.142 \; [0.128, 0.158]$ & 0.144 \\
+Single-Graph ($G_1$) & $0.741 \; [0.728, 0.755]$ & $0.058 \; [0.029, 0.091]$ & $0.122 \; [0.108, 0.137]$ & 0.151 \\
+Average-Graph ($\bar{G}$) & $0.718 \; [0.704, 0.732]$ & $0.064 \; [0.033, 0.099]$ & $0.108 \; [0.094, 0.123]$ & 0.159 \\
+\textbf{Minimax Robust} & $\mathbf{0.732} \; [0.719, 0.746]$ & $\mathbf{0.046} \; [0.018, 0.078]$ & $\mathbf{0.073} \; [0.061, 0.086]$ & 0.154 \\
+\bottomrule
+\end{tabular}
+\end{table}

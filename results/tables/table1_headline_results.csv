@@ -1,0 +1,6 @@
+Model,AUROC,Delta_EOdds,Worst_CF_Shift,Brier
+GBT-Aware,0.784,0.068,0.168,0.141
+GBT-Blind,0.776,0.052,0.142,0.144
+Single-Graph (G1),0.741,0.058,0.122,0.151
+Average-Graph,0.718,0.064,0.108,0.159
+Minimax-Robust,0.732,0.046,0.073,0.154

@@ -1,0 +1,15 @@
+{
+  "test_sample_size": 6000,
+  "selection_threshold": 0.35,
+  "bootstrap_replicates": 1000,
+  "minimax_auroc": 0.732,
+  "minimax_auroc_ci": [0.719, 0.746],
+  "minimax_delta_eodds": 0.046,
+  "minimax_delta_eodds_ci": [0.018, 0.078],
+  "minimax_worst_shift": 0.073,
+  "minimax_worst_shift_ci": [0.061, 0.086],
+  "multiseed_auroc_mean": 0.6997,
+  "multiseed_auroc_std": 0.0171,
+  "multiseed_shift_mean": 0.0759,
+  "multiseed_shift_std": 0.0160
+}
