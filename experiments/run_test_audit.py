@@ -72,9 +72,9 @@ def run_experiment_1():
         results.append({
             "Model": model_name,
             "AUROC": f"{metrics['AUROC']:.4f}",
-            "AP": f"{metrics['AP']:.4f}",
+            "Average precision": f"{metrics['AP']:.4f}",
             "Delta_EOdds": f"{metrics['Delta_EOdds']:.4f}",
-            "Delta_DP": f"{metrics['Delta_DP']:.4f}",
+            "Del Dem Par": f"{metrics['Delta_DP']:.4f}",
             "R_sel": f"{metrics['R_sel']:.4f}"
         })
 
